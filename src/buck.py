@@ -14,46 +14,50 @@ def cli(ctx, bucket_name, directory):
     ctx.obj["directory"] = directory
 
 
-@cli.command("list_all")
+@cli.command("list-all")
 @click.pass_context
 def list_all(ctx):
-    print(buck_aws.list_all_in_bucket(
+    result = buck_aws.list_all_in_bucket(
         ctx.obj["bucket_name"],
-        ctx.obj["directory"])
+        ctx.obj["directory"]
     )
+    print(result)
 
 
 @cli.command("find")
 @click.option('--pattern', required=True, help='Pattern')
 @click.pass_context
 def find(ctx, pattern):
-    print(buck_aws.find_in_bucket(
+    reslut = buck_aws.find_in_bucket(
         ctx.obj["bucket_name"],
         ctx.obj["directory"],
         pattern
-    ))
+    )
+    print(reslut)
 
 
 @cli.command("upload")
-@click.option('--file_path', required=True, help='File path')
+@click.option('--file-path', required=True, help='File path')
 @click.pass_context
 def upload(ctx, file_path):
-    print(buck_aws.upload_file_to_bucket(
+    result = buck_aws.upload_file_to_bucket(
         file_path,
         ctx.obj["bucket_name"],
         ctx.obj["directory"]
-    ))
+    )
+    print(result)
 
 
 @cli.command("delete")
-@click.option('--pattern', default='\b\B', help='Pattern')
+@click.option('--pattern', required=True, help='Pattern')
 @click.pass_context
 def delete(ctx, pattern):
-    print(buck_aws.delete_matching_files(
+    result = buck_aws.delete_matching_files(
         ctx.obj["bucket_name"],
         ctx.obj["directory"],
         pattern
-    ))
+    )
+    print(result)
 
 
 if __name__ == '__main__':

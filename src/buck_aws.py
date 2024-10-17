@@ -3,6 +3,9 @@ import boto3
 import re
 
 
+class CredentialsError(Exception):
+    pass
+
 def check_credentials(fucntion):
     """Check env variables for credentials"""
 
@@ -10,12 +13,10 @@ def check_credentials(fucntion):
         aws_key_id = os.getenv('AWS_ACCESS_KEY_ID')
         aws_secret_key = os.getenv('AWS_ACCESS_KEY')
 
-        if not aws_key_id:
-            print('AWS_ACCESS_KEY_ID not set')
-            exit(1)
-        if not aws_secret_key:
-            print('AWS_SECRET_ACCESS_KEY not set')
-            exit(1)
+        if aws_key_id is None:
+            raise CredentialsError('AWS_SECRET_ACCESS_KEY not set')
+        if aws_secret_key is None:
+            raise CredentialsError('AWS_SECRET_ACCESS_KEY not set')
 
         session = boto3.Session(
             aws_access_key_id=aws_key_id,
