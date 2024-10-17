@@ -1,4 +1,4 @@
-import pytest
+
 from click.testing import CliRunner
 
 from buck import cli
@@ -13,6 +13,7 @@ def test_cli_list_all_correct(mocker):
     assert result.exit_code == 0
     assert result.output == "['file1', 'file2']\n"
 
+
 def test_cli_find_correct(mocker):
     mocker.patch("buck_aws.find_in_bucket", return_value="file1")
     runner = CliRunner()
@@ -20,15 +21,23 @@ def test_cli_find_correct(mocker):
     assert result.exit_code == 0
     assert result.output == "file1\n"
 
+
 def test_cli_upload_correct(mocker):
-    mocker.patch("buck_aws.upload_file_to_bucket", return_value="File file1 uploaded")
+    mocker.patch(
+        "buck_aws.upload_file_to_bucket",
+        return_value="File file1 uploaded"
+    )
     runner = CliRunner()
     result = runner.invoke(cli, ["upload", "--file-path", "file1"])
     assert result.exit_code == 0
     assert result.output == "File file1 uploaded\n"
 
+
 def test_cli_delete_correct(mocker):
-    mocker.patch("buck_aws.delete_matching_files", return_value="Deleted file1")
+    mocker.patch(
+        "buck_aws.delete_matching_files",
+        return_value="Deleted file1"
+    )
     runner = CliRunner()
     result = runner.invoke(cli, ["delete", "--pattern", "\b\B"])
     assert result.exit_code == 0

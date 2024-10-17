@@ -1,7 +1,8 @@
 
 import buck_aws
 import click
-import os
+
+from pprint import pprint
 
 
 @click.group()
@@ -21,7 +22,7 @@ def list_all(ctx):
         ctx.obj["bucket_name"],
         ctx.obj["directory"]
     )
-    print(result)
+    pprint(result)
 
 
 @cli.command("find")
@@ -33,7 +34,7 @@ def find(ctx, pattern):
         ctx.obj["directory"],
         pattern
     )
-    print(reslut)
+    pprint(reslut)
 
 
 @cli.command("upload")
@@ -45,7 +46,7 @@ def upload(ctx, file_path):
         ctx.obj["bucket_name"],
         ctx.obj["directory"]
     )
-    print(result)
+    pprint(result)
 
 
 @cli.command("delete")
@@ -57,7 +58,7 @@ def delete(ctx, pattern):
         ctx.obj["directory"],
         pattern
     )
-    print(result)
+    pprint(result)
 
 
 if __name__ == '__main__':

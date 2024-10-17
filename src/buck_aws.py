@@ -6,6 +6,7 @@ import re
 class CredentialsError(Exception):
     pass
 
+
 def check_credentials(fucntion):
     """Check env variables for credentials"""
 
