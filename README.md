@@ -7,7 +7,7 @@ Build buck:
 pip install .
 ```
 
-Use buck: (straing like this in command line)
+Use buck: (straight like this in the command line)
 ```
 buck --help
 ```
