@@ -88,7 +88,7 @@ def delete_matching_files(
     bucket = s3.Bucket(bucket_name)
     for obj in bucket.objects.filter(Prefix=directory):
         if re.search(pattern, obj.key):
-            obj.delete()
+            print(f"Deleting {obj.key}")
     return f"Files matching {pattern} deleted"
 
 
