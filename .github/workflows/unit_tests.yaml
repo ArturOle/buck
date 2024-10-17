@@ -23,9 +23,9 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build
-      - run: |
-         pip install -r reqs/test.txt
-         pip install .
+        run: |
+          pip install -r reqs/test.txt
+          pip install .
 
       - name: Run tests
         run: pytest test/
