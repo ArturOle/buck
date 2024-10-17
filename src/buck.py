@@ -38,22 +38,22 @@ def find(ctx, pattern):
 @click.option('--file_path', required=True, help='File path')
 @click.pass_context
 def upload(ctx, file_path):
-    return buck_aws.upload_file_to_bucket(
+    print(buck_aws.upload_file_to_bucket(
         file_path,
         ctx.obj["bucket_name"],
         ctx.obj["directory"]
-    )
+    ))
 
 
 @cli.command("delete")
 @click.option('--pattern', default='\b\B', help='Pattern')
 @click.pass_context
 def delete(ctx, pattern):
-    return buck_aws.delete_matching_files(
+    print(buck_aws.delete_matching_files(
         ctx.obj["bucket_name"],
         ctx.obj["directory"],
         pattern
-    )
+    ))
 
 
 if __name__ == '__main__':
