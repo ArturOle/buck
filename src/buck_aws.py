@@ -34,10 +34,9 @@ def list_all_in_bucket(
         _session: boto3.Session = None
 ):
     """List all files in bucket under directory"""
-    # s3 = _session.client('s3')
-    # response = s3.list_objects_v2(Bucket=bucket_name, Prefix=directory)
-    # return [obj.key for obj in response]
-    return ["files"]
+    s3 = _session.client('s3')
+    response = s3.list_objects_v2(Bucket=bucket_name, Prefix=directory)
+    return [obj.key for obj in response]
 
 
 @check_credentials
@@ -48,14 +47,13 @@ def find_in_bucket(
         _session: boto3.Session = None
 ):
     """Find file in bucket under directory"""
-    # s3 = boto3.client('s3')
-    # response = s3.list_objects_v2(Bucket=bucket_name, Prefix=directory)
-    # files = response['Contents']
-    # for file in files:
-    #     if re.search(pattern, file['Key']):
-    #         return file['Key']
-    # return None
-    return ["files"]
+    s3 = boto3.client('s3')
+    response = s3.list_objects_v2(Bucket=bucket_name, Prefix=directory)
+    files = response['Contents']
+    for file in files:
+        if re.search(pattern, file['Key']):
+            return file['Key']
+    return None
 
 
 @check_credentials
@@ -72,6 +70,7 @@ def upload_file_to_bucket(
         bucket_name,
         f"{directory}/{os.path.basename(file_path)}"
     )
+    return f"File {file_path} uploaded"
 
 
 @check_credentials
@@ -87,6 +86,7 @@ def delete_matching_files(
     for obj in bucket.objects.filter(Prefix=directory):
         if re.search(pattern, obj.key):
             obj.delete()
+    return f"Files matching {pattern} deleted"
 
 
 if __name__ == '__main__':

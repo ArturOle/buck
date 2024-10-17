@@ -1,6 +1,6 @@
 [project]
 name = "buck"
-version = "0.1.0"
+version = "0.2.0"
 description = "CLI for bucket management"
 authors = [
     { name = "ArturOle", email = "artur.oleksinski99@gmail.com" }
@@ -18,3 +18,6 @@ dependencies = {file = ["reqs\base.txt"]}
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[project.scripts]
+buck = "buck:cli"
