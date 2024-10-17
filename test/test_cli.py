@@ -19,7 +19,7 @@ def test_cli_find_correct(mocker):
     runner = CliRunner()
     result = runner.invoke(cli, ["find", "--pattern", ".*"])
     assert result.exit_code == 0
-    assert result.output == "file1\n"
+    assert result.output == "'file1'\n"
 
 
 def test_cli_upload_correct(mocker):
@@ -30,7 +30,7 @@ def test_cli_upload_correct(mocker):
     runner = CliRunner()
     result = runner.invoke(cli, ["upload", "--file-path", "file1"])
     assert result.exit_code == 0
-    assert result.output == "File file1 uploaded\n"
+    assert result.output == "'File file1 uploaded'\n"
 
 
 def test_cli_delete_correct(mocker):
@@ -41,7 +41,7 @@ def test_cli_delete_correct(mocker):
     runner = CliRunner()
     result = runner.invoke(cli, ["delete", "--pattern", "\b\B"])
     assert result.exit_code == 0
-    assert result.output == "Deleted file1\n"
+    assert result.output == "'Deleted file1'\n"
 
 
 # Incorrect tests
