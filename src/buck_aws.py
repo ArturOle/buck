@@ -29,25 +29,28 @@ def check_credentials(fucntion):
 
 @check_credentials
 def list_all_in_bucket(
-        bucket_name: str = "developer-task",
-        directory: str = " TIE-sa",
+        bucket_name: str = "developer-task2",
+        directory: str = "TIE-sa",
         _session: boto3.Session = None
 ):
     """List all files in bucket under directory"""
     s3 = _session.client('s3')
     response = s3.list_objects_v2(Bucket=bucket_name, Prefix=directory)
-    return [obj.key for obj in response]
+    if 'Contents' in response:
+        files = [item['Key'] for item in response['Contents']]
+        return files
+    return None
 
 
 @check_credentials
 def find_in_bucket(
-        bucket_name: str = "developer-task",
+        bucket_name: str = "developer-task2",
         directory: str = "TIE-sa",
         pattern: str = ".*",
         _session: boto3.Session = None
 ):
     """Find file in bucket under directory"""
-    s3 = boto3.client('s3')
+    s3 = _session.client('s3')
     response = s3.list_objects_v2(Bucket=bucket_name, Prefix=directory)
     files = response['Contents']
     for file in files:
@@ -59,7 +62,7 @@ def find_in_bucket(
 @check_credentials
 def upload_file_to_bucket(
         file_path: str,
-        bucket_name: str = "developer-task",
+        bucket_name: str = "developer-task2",
         directory: str = "TIE-sa",
         _session: boto3.Session = None
 ):
@@ -77,7 +80,7 @@ def upload_file_to_bucket(
 def delete_matching_files(
         bucket_name: str = "developer-task",
         directory: str = "TIE-sa",
-        pattern: str = ".*",
+        pattern: str = "\b\B",
         _session: boto3.Session = None
 ):
     """Delete files in bucket under directory that match pattern"""
