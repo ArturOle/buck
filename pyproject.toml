@@ -1,0 +1,20 @@
+[project]
+name = "buck"
+version = "0.1.0"
+description = "CLI for bucket management"
+authors = [
+    { name = "ArturOle", email = "artur.oleksinski99@gmail.com" }
+]
+readme = "README.md"
+keywords = ["cli", "aws", "bucket"]
+dynamic = ["dependencies"]
+
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["reqs\base.txt"]}
+
+[tool.setuptools.packages.find]
+where = ["src"]
