@@ -1,4 +1,4 @@
-# buck
+# buck - interview task for LCloud
 
 Remenber to set your AWS credentials to ENV variables!
 
